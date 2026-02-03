@@ -61,15 +61,29 @@ class YoutubeConverterApp:
         thread.start()
 
     def download_logic(self, url):
-        # Configuration de yt-dlp
+        # Configuration de yt-dlp avec métadonnées
         ydl_opts = {
             'format': 'bestaudio/best',
             'outtmpl': os.path.join(self.download_folder, '%(title)s.%(ext)s'),
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
+            
+            # --- NOUVEAUTÉS POUR LES INFOS ---
+            'writethumbnail': True,   # Télécharge l'image
+            'postprocessors': [
+                {
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                },
+                {
+                    'key': 'FFmpegMetadata',  # Ajoute les infos (Artiste, Titre...)
+                    'add_metadata': True,
+                },
+                {
+                    'key': 'EmbedThumbnail',  # Incruste l'image dans le MP3
+                }
+            ],
+            # ---------------------------------
+            
             'noplaylist': False,
             'quiet': True,
             'progress_hooks': [self.progress_hook],
@@ -79,11 +93,9 @@ class YoutubeConverterApp:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
             
-            # Succès
-            self.root.after(0, self.finish_download, "Succès", "Conversion terminée !")
+            self.root.after(0, self.finish_download, "Succès", "Conversion terminée avec succès !")
             
         except Exception as e:
-            # CORRECTION ICI : On convertit l'erreur en texte immédiatement
             error_message = str(e)
             self.root.after(0, self.finish_download, "Erreur", error_message)
 
