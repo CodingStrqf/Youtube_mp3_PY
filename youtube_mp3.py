@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 import yt_dlp
 import threading
 import os
-import json  # <--- NOUVEAU : Pour gérer la sauvegarde
+import json
 
 # Configuration du thème
 ctk.set_appearance_mode("Dark")
