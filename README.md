@@ -2,7 +2,7 @@ python -m venv venv
 
 source venv/bin/activate
 
-pip install customtkinter yt_dlp ffmpeg
+pip install customtkinter yt_dlp ffmpeg pyinstaller
 
 # Windows compile
 C'est une erreur classique sous Linux/Kali. PyInstaller a besoin de la librairie partagée de Python pour "emballer" l'interpréteur, et elle n'est pas installée par défaut avec la version standard de Python.
