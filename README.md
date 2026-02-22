@@ -31,6 +31,8 @@ Une fois installé, relancez votre commande PyInstaller :
 ```bash
 pyinstaller --noconsole --onefile youtube_mp3.py
 
+pyinstaller --noconsole --onefile --icon="icone.ico" --name="YT_Downloader" main.py
+
 ```
 
 ---
