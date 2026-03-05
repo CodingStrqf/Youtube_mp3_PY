@@ -2,11 +2,10 @@ python -m venv venv
 
 source venv/bin/activate
 
+pip install customtkinter yt_dlp ffmpeg pyinstaller
 
 .exe windows :
 pyinstaller --noconsole --onefile --collect-all customtkinter youtube_mp3_v2.py
-
--------------------------------------
 
 # Windows compile
 C'est une erreur classique sous Linux/Kali. PyInstaller a besoin de la librairie partagée de Python pour "emballer" l'interpréteur, et elle n'est pas installée par défaut avec la version standard de Python.
@@ -34,6 +33,8 @@ Une fois installé, relancez votre commande PyInstaller :
 
 ```bash
 pyinstaller --noconsole --onefile youtube_mp3.py
+
+pyinstaller --noconsole --onefile --icon="icone.ico" --name="YT_Downloader" main.py
 
 ```
 
