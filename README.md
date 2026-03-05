@@ -2,6 +2,12 @@ python -m venv venv
 
 source venv/bin/activate
 
+
+.exe windows :
+pyinstaller --noconsole --onefile --collect-all customtkinter youtube_mp3_v2.py
+
+-------------------------------------
+
 # Windows compile
 C'est une erreur classique sous Linux/Kali. PyInstaller a besoin de la librairie partagée de Python pour "emballer" l'interpréteur, et elle n'est pas installée par défaut avec la version standard de Python.
 
