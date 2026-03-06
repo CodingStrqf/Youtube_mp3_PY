@@ -58,3 +58,30 @@ Vous ne pouvez pas utiliser Kali/WSL pour générer le `.exe`. Vous devez :
 3. Lancer la commande `pyinstaller` depuis Windows.
 
 Voulez-vous que je vous explique comment faire cette manipulation côté Windows pour avoir un vrai `.exe` ?
+
+
+
+
+
+
+
+
+===============
+
+Nouvelles features : 
+- Sélection de la qualité
+- Liste d'attente
+- Selection de vidéo dans la playlist 
+- Previsualisation de la vidéo pour savoir comment la couper 
+- Normalisation Audio : Utiliser FFmpeg pour que tous les MP3 téléchargés aient le même niveau sonore
+
+- Upscaler de vidéo 
+    - https://cel.hal.science/cel-00125868v2/file/Coursimage08.pdf
+    - https://perso.univ-rennes1.fr/pierre.maurel/IMA/CM/ima03_restauration_presentation.pdf
+
+
+480p    720x480 pixels
+720p	1280x720 pixels	
+1080p	1920x1080 pixels
+2160p	3840x2160 pixels
+4320p	7680x4320 pixels

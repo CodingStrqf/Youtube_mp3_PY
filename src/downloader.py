@@ -1,6 +1,6 @@
 import yt_dlp
 import os
-from utils import time_to_seconds
+from .utils import time_to_seconds
 
 def download_media(url, folder, format_type, start_time, end_time, progress_hook):
     """Gère le téléchargement via yt_dlp."""

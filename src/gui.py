@@ -2,8 +2,8 @@ import customtkinter as ctk
 from tkinter import filedialog, messagebox
 import threading
 import re
-from utils import load_settings, save_settings, get_short_path
-from downloader import download_media
+from .utils import load_settings, save_settings, get_short_path
+from .downloader import download_media
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
