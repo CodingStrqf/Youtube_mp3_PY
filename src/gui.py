@@ -13,7 +13,7 @@ class App(ctk.CTk):
         super().__init__()
 
         self.title("YouTube Downloader PRO")
-        self.geometry("600x550") # Fenêtre un peu plus haute pour les nouvelles options
+        self.geometry("1280x720") # Fenêtre un peu plus haute pour les nouvelles options
         self.resizable(False, False)
 
         self.download_folder = load_settings()
@@ -32,10 +32,24 @@ class App(ctk.CTk):
         self.entry_url = ctk.CTkEntry(self.main_frame, placeholder_text="Collez le lien YouTube ici...", width=400, height=40)
         self.entry_url.pack(pady=10)
 
+        # Frame pour Options (Format + Qualité)
+        self.options_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
+        self.options_frame.pack(pady=10)
+
         # Choix MP3 / MP4
         self.format_var = ctk.StringVar(value="MP3")
-        self.seg_button = ctk.CTkSegmentedButton(self.main_frame, values=["MP3", "MP4"], variable=self.format_var, width=200)
-        self.seg_button.pack(pady=10)
+        self.seg_button = ctk.CTkSegmentedButton(self.options_frame, values=["MP3", "MP4"], 
+                                                 variable=self.format_var, command=self.toggle_quality_menu)
+        self.seg_button.pack(side="left", padx=10)
+
+        # Menu Qualité (uniquement utile pour MP4)
+        self.quality_var = ctk.StringVar(value="720p")
+        self.quality_menu = ctk.CTkComboBox(self.options_frame, values=["360p", "480p", "720p", "1080p", "1440p", "2160p"],
+                                            variable=self.quality_var, width=100)
+        self.quality_menu.pack(side="left", padx=10)
+        
+        # Désactiver la qualité si MP3 au démarrage
+        self.toggle_quality_menu(self.format_var.get())
 
         # Options de découpage (Temps)
         self.time_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
@@ -78,6 +92,13 @@ class App(ctk.CTk):
             self.label_path.configure(text=get_short_path(self.download_folder))
             save_settings(self.download_folder)
 
+    def toggle_quality_menu(self, value):
+        """Désactive le menu qualité si on choisit MP3."""
+        if value == "MP3":
+            self.quality_menu.configure(state="disabled")
+        else:
+            self.quality_menu.configure(state="normal")
+
     def start_download_thread(self):
         url = self.entry_url.get()
         if not url:
@@ -90,16 +111,17 @@ class App(ctk.CTk):
         
         # Récupération des paramètres
         fmt = self.format_var.get()
+        qual = self.quality_var.get()
         start = self.entry_start.get()
         end = self.entry_end.get()
 
-        thread = threading.Thread(target=self.run_download, args=(url, fmt, start, end))
+        thread = threading.Thread(target=self.run_download, args=(url, fmt, qual, start, end))
         thread.daemon = True
         thread.start()
 
-    def run_download(self, url, fmt, start, end):
+    def run_download(self, url, fmt, qual, start, end): 
         try:
-            download_media(url, self.download_folder, fmt, start, end, self.progress_hook)
+            download_media(url, self.download_folder, fmt, qual, start, end, self.progress_hook)
             self.after(0, self.finish_download, "Succès", "Terminé avec succès !")
         except Exception as e:
             self.after(0, self.finish_download, "Erreur", str(e))

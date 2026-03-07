@@ -67,9 +67,9 @@ Voulez-vous que je vous explique comment faire cette manipulation côté Windows
 
 
 ===============
+https://www.youtube.com/watch?v=4lRWIQzuge8
 
 Nouvelles features : 
-- Sélection de la qualité
 - Liste d'attente
 - Selection de vidéo dans la playlist 
 - Previsualisation de la vidéo pour savoir comment la couper 
